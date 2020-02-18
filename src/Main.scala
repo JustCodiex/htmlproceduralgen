@@ -23,7 +23,8 @@ object Main {
     h109.setPartyColour("New Republican Party", "red");
     h109.setPartyColour("Democratic Party", "blue");
 
-    h109.colour()
+    //h109.colour()
+    h109.colour2()
 
     var h179 = new HorseShoe(179);
     h179.partiesFromTable(t179, 2);
@@ -35,7 +36,7 @@ object Main {
     h179.setPartyColour("Green Democrats", "green");
     h179.setPartyColour("The People's Socialist Alliance", "darkred");
 
-    h179.colour();
+    h179.colour2();
 
     var t751 = new Table(Array("Name", "Abbreviation", "Seats"));
     t751.addEntry(("Greens" :: "G" :: 23 :: Nil).toArray);
@@ -68,7 +69,7 @@ object Main {
     h751.setPartyColour("Unitary Left", "pink");
     h751.setPartyColour("New Right's Final Alliance", "grey");
 
-    h751.colour();
+    h751.colour2();
 
     new HTMLFile(t179.getHtml() + h179.getHtml()).save("test_179.html")
     new HTMLFile(t109.getHtml() + h109.getHtml()).save("test_109.html")

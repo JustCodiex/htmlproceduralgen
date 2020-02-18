@@ -2,7 +2,7 @@ package Project;
 
 class HorseShoe(seats: Int) {
 
-  private sealed case class Seat(x: Double, y: Double, var colour: String, r: Int);
+  private sealed case class Seat(x: Double, y: Double, var colour: String, r: Int, var seated: Boolean);
 
   private sealed case class LegParty(name: String, var colour: String, seats: Int);
 
@@ -90,7 +90,7 @@ class HorseShoe(seats: Int) {
         val x = (w / 2.0) + (math.cos(math.toRadians(angle)) * dst_to_centre);
         val y = h - (math.sin(math.toRadians(angle)) * dst_to_centre);
 
-        shoe(sIndex) = Seat(x, y, "white", rIndex);
+        shoe(sIndex) = Seat(x, y, "white", rIndex, false);
         arr(i) = sIndex;
 
         sIndex += 1;
@@ -152,6 +152,87 @@ class HorseShoe(seats: Int) {
       }
 
     }
+  }
+
+  def colour2(): Unit = {
+
+    var pIndexMin = 0;
+    var pIndexMax = parties.length - 1;
+    var rIndex = seatIndices.length - 1;
+
+    var rMinIndex = 0;
+
+    val cIndex = emptyRow(seatIndices.length, 0);
+    val pSeats = parties.map(x => x.seats).toArray;
+
+    var invert = false;
+
+    for (_ <-0 until seats) {
+
+      val c = if (invert) seatIndices(rIndex).length - 1 - cIndex(rIndex) else cIndex(rIndex)
+
+      val pIndex = if (invert) pIndexMax else pIndexMin
+      println(pIndex + ":" + invert);
+      val colour = parties(pIndex).colour;
+
+      val sIndex = seatIndices(rIndex)(c);
+
+      if (!shoe(sIndex).seated) {
+
+        shoe(sIndex).colour = colour;
+        shoe(sIndex).seated = true;
+
+        pSeats(pIndex) -= 1;
+        if (pSeats(pIndex) <= 0) {
+          if (invert && pIndexMax - 1 >= pIndexMin) {
+            pIndexMax -= 1
+          } else {
+            pIndexMin += 1
+          }
+        }
+
+      }
+
+      val cut = seatIndices(rIndex).length / 2
+
+      if (invert) {
+
+        if (cIndex(rIndex) + 1 == cut) {
+          rMinIndex += 1;
+        } else {
+          cIndex(rIndex) += 1;
+        }
+
+        rIndex -= 1;
+
+        if (rIndex < rMinIndex) {
+          rIndex = seatIndices.length - 1;
+        }
+
+      } else{
+
+        if (cIndex(rIndex) + 1 == cut) {
+
+          if (seatIndices(rIndex).length % 2 != 0){
+            val s = seatIndices(rIndex)(c+1);
+            shoe(s).colour = colour;
+            shoe(s).seated = true;
+            pSeats(pIndexMin) -= 1;
+            if (pSeats(pIndexMin) - 1 <= 0) {
+              pIndexMin += 1;
+            }
+          }
+
+        }
+
+      }
+
+      invert = !invert
+
+    }
+
+    println("Done");
+
   }
 
   def getHtml(): String = {
