@@ -1,6 +1,6 @@
 package Project;
 
-class HorseShoe(seats: Int) {
+class SemiCircle(seats: Int) {
 
   private sealed case class Seat(x: Double, y: Double, var colour: String, r: Int, var seated: Boolean);
 
@@ -122,40 +122,6 @@ class HorseShoe(seats: Int) {
 
   def colour(): Unit = {
 
-    var pIndex = 0;
-    var rIndex = seatIndices.length - 1;
-
-    var rMinIndex = 0;
-
-    val cIndex = emptyRow(seatIndices.length, 0);
-    val pSeats = parties.map(x => x.seats).toArray;
-
-    for (_ <-0 until seats) {
-
-      val c = cIndex(rIndex);
-      shoe(seatIndices(rIndex)(c)).colour = parties(pIndex).colour;
-
-      pSeats(pIndex) -= 1;
-      if (pSeats(pIndex) <= 0){
-        pIndex += 1
-      }
-
-      cIndex(rIndex) += 1;
-      if (cIndex(rIndex) > seatIndices(rIndex).length-1){
-        rMinIndex += 1;
-      }
-
-      rIndex -= 1;
-
-      if (rIndex < rMinIndex) {
-        rIndex = seatIndices.length - 1;
-      }
-
-    }
-  }
-
-  def colour2(): Unit = {
-
     var pIndexMin = 0;
     var pIndexMax = parties.length - 1;
     var rIndex = seatIndices.length - 1;
@@ -163,7 +129,7 @@ class HorseShoe(seats: Int) {
     var rMinIndex = 0;
 
     val cIndex = emptyRow(seatIndices.length, 0);
-    val pSeats = parties.map(x => x.seats).toArray;
+    val pSeats = parties.map(x => x.seats).toArray; // Also used to validate we've allocated correctly
 
     var invert = false;
 
@@ -172,7 +138,6 @@ class HorseShoe(seats: Int) {
       val c = if (invert) seatIndices(rIndex).length - 1 - cIndex(rIndex) else cIndex(rIndex)
 
       val pIndex = if (invert) pIndexMax else pIndexMin
-      println(pIndex + ":" + invert);
       val colour = parties(pIndex).colour;
 
       val sIndex = seatIndices(rIndex)(c);
@@ -213,7 +178,7 @@ class HorseShoe(seats: Int) {
 
         if (cIndex(rIndex) + 1 == cut) {
 
-          if (seatIndices(rIndex).length % 2 != 0){
+          if (seatIndices(rIndex).length % 2 != 0){ // Only assign using left-hand party (since inverse = false)
             val s = seatIndices(rIndex)(c+1);
             shoe(s).colour = colour;
             shoe(s).seated = true;
@@ -230,8 +195,6 @@ class HorseShoe(seats: Int) {
       invert = !invert
 
     }
-
-    println("Done");
 
   }
 
