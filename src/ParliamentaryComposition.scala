@@ -4,32 +4,32 @@ sealed case class Seat(x: Double, y: Double, var colour: String, r: Int, var sea
   var animations: List[SVGAnimation] = List[SVGAnimation]()
 }
 
-sealed case class LegParty(name: String, var colour: String, seats: Int);
+sealed case class LegParty(name: String, var colour: String, seats: Int)
 
 abstract class ParliamentaryComposition(seats: Int) {
 
-  val w = 1700;
-  val h = 740;
+  val w = 1700
+  val h = 740
 
-  val seat_svg_size = 8;
-  val seat_svg_spacing = 2;
+  val seat_svg_size = 8
+  val seat_svg_spacing = 2
 
-  protected var parties: List[LegParty] = Nil;
+  protected var parties: List[LegParty] = Nil
 
-  protected val composition: Array[Seat] = new Array[Seat](seats);
+  protected val composition: Array[Seat] = new Array[Seat](seats)
 
   def partiesFromTable(source: Table, seatIndex: Int): Unit = {
     for (e <- source.entries){
-      parties = LegParty(e(0).toString(), "white", e(seatIndex).toString.toInt) :: parties;
+      parties = LegParty(e(0).toString, "white", e(seatIndex).toString.toInt) :: parties
     }
-    parties = parties.filter(x => x.seats > 0).sortBy(x => x.seats).reverse;
+    parties = parties.filter(x => x.seats > 0).sortBy(x => x.seats).reverse
   }
 
   def setPartyColour(name: String, colour: String): Unit = {
     for (p <- parties){
       if (p.name == name){
-        p.colour = colour;
-        return;
+        p.colour = colour
+        return
       }
     }
   }
@@ -46,9 +46,9 @@ abstract class ParliamentaryComposition(seats: Int) {
 
   }
 
-  def build(): Unit;
+  def build(): Unit
 
-  def colour(): Unit;
+  def colour(): Unit
 
   def addOpacityAnimation(duration: Double, maxDelay: Double): Unit = {
     val minx: Double = composition.minBy(x => x.x).x - 2
@@ -65,7 +65,7 @@ abstract class ParliamentaryComposition(seats: Int) {
 
     var result = "<svg width=\"" + w + "\" height=\"" + h + "\">\n"
 
-    for (i <- 0 to composition.length - 1) {
+    for (i <- composition.indices) {
 
       val s = composition(i)
 
@@ -85,6 +85,8 @@ abstract class ParliamentaryComposition(seats: Int) {
       result += circle
 
     }
+
+    result += "<text x=\"50%\" y=\"" + (h - 12.0) + "\" font-size=\"22\" font-family=\"Verdana\" alignment-baseline=\"middle\" text-anchor=\"middle\">" + seats + "</text>"
 
     result += "</svg>\n"
     result;
