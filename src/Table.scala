@@ -14,6 +14,10 @@ class Table(columns: Array[String]) {
     }
   }
 
+  def sort(index: Int): Unit = {
+    entries = entries.sortBy(x => x(index).asInstanceOf[Int]);
+  }
+
   def getHtml(): String = {
     var html = "<table>\n";
     html += "<tr>";
@@ -24,7 +28,7 @@ class Table(columns: Array[String]) {
       for (o <- e) html += "<th>" + o + "</th>\n"
       html += "</tr>";
     }
-    html += "</table>"
+    html += "</table>\n"
     html;
   }
 
