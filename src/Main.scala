@@ -31,7 +31,7 @@ object Main {
     val h109 = new SemiCircle(109)
     h109.partiesFromTable(t109, 2)
     h109.build()
-
+    h109.addOpacityAnimation(0.1, 1)
     h109.setPartyColour("New Republican Party", "red")
     h109.setPartyColour("Democratic Party", "blue")
 
@@ -78,6 +78,13 @@ object Main {
     h751.setPartyColour("Alliance for Freedom and Liberty", "orange")
     h751.setPartyColour("Moderate Democrats and Centrists", "yellow")
     h751.setPartyColour("Unitary Left", "darkred")
+    h751.setPartyOrder(
+      Array(
+        "Unitary Left", "Union of Socialists and Social Democrats", "Greens",
+        "Moderate Democrats and Centrists", "Alliance for Freedom and Liberty",
+        "The Christian Conservative Party", "National Conservative and Protectionist Party"
+      )
+    )
 
     h751.colour()
     h751.addOpacityAnimation(0.1, 1)
@@ -128,6 +135,36 @@ object Main {
     o650.setCentre(true)
 
     new HTMLFile(t650.getHtml + o650.getHtml).save("test_o_650.html")
+
+    val t435 = new Table(Array("Name", "Abbreviation", "Seats"))
+    t435.addEntry(("Democratic Socialists" :: "S" :: 16 :: Nil).toArray)
+    t435.addEntry(("Democrat" :: "D" :: 73 :: Nil).toArray)
+    t435.addEntry(("Moderate" :: "M" :: 198 :: Nil).toArray)
+    t435.addEntry(("Republican" :: "R" :: 101 :: Nil).toArray)
+    t435.addEntry(("National Republicans" :: "N" :: 47 :: Nil).toArray)
+    t435.sort(2)
+    t435.sum(2)
+    t435.setTableBorder(SolidBorder("black", 1))
+    t435.setColumnBorder(SolidBorder("black", 1))
+    t435.setWidth(520)
+    t435.setCentre(true)
+
+    val b435 = new Bar(435)
+    b435.partiesFromTable(t435, 2)
+    b435.setPartyColour("Democratic Socialists", "darkred")
+    b435.setPartyColour("Democrat", "blue")
+    b435.setPartyColour("Moderate", "yellow")
+    b435.setPartyColour("Republican", "red")
+    b435.setPartyColour("National Republicans", "magenta")
+    b435.setPartyOrder(Array("Moderate", "Democrat", "Republican", "National Republicans", "Democratic Socialists"))
+    b435.colour()
+
+    b435.setShowSeats(true)
+    b435.setCentre(true)
+    b435.setShowMajority(true)
+    b435.addOpacityAnimation(1.5)
+
+    new HTMLFile(t435.getHtml + b435.getHtml).save("test_expanded_us_435.html")
 
   }
 

@@ -10,8 +10,8 @@ sealed case class LegParty(name: String, var colour: String, seats: Int)
 
 abstract class ParliamentaryComposition(seats: Int) {
 
-  val w = 1700
-  val h = 740
+  protected val w = 1700
+  protected val h = 740
 
   val seat_svg_size = 8
   val seat_svg_spacing = 2
@@ -57,15 +57,20 @@ abstract class ParliamentaryComposition(seats: Int) {
   def addOpacityAnimation(duration: Double, maxDelay: Double): Unit = {
     val minx: Double = composition.minBy(x => x.x).x - 2
     val maxx: Double = composition.maxBy(x => x.x).x
+
     val diff = maxx - minx
     for (seat <- composition){
-      seat.animations = SVGFadeInAnimation(0, 1, duration, ((seat.x - minx) / diff) * maxDelay) :: seat.animations
+      val delay = (180.0 - math.atan2((h - seat.y), (seat.x - (w/2))).toDegrees) / 180.0 * maxDelay
+      if (seat.r == 0) {
+        println(math.atan2((h - seat.y), (seat.x - (w/2))).toDegrees + "°")
+      }
+      seat.animations = SVGFadeInAnimation(0, 1, duration, delay) :: seat.animations
     }
   }
 
   def setCentre(centre: Boolean): Unit = { centreSVG = centre }
 
-  def getStyle: String = {
+  protected def getStyle: String = {
     var result = " style=\""
     if (centreSVG) result += "margin-left:auto; margin-right:auto; display:block;"
     result += "\""
