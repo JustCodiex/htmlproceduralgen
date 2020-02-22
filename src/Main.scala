@@ -1,5 +1,5 @@
-import Project._
-import java.math._
+import GraphicsBuilder._
+import HtmlCompiler._
 
 object Main {
 
@@ -16,6 +16,7 @@ object Main {
     t179.setColumnBorder(SolidBorder("black", 1))
     t179.setWidth(520)
     t179.setCentre(true)
+    t179.sort(2)
 
     val t109 = new Table(Array("Name", "Abbreviation", "Seats"))
     t109.addEntry(("New Republican Party" :: "R" :: 63 :: Nil).toArray)
@@ -25,6 +26,7 @@ object Main {
     t109.setColumnBorder(SolidBorder("black", 1))
     t109.setWidth(520)
     t109.setCentre(true)
+    t109.sort(2)
 
     val h109 = new SemiCircle(109)
     h109.partiesFromTable(t109, 2)
@@ -34,6 +36,7 @@ object Main {
     h109.setPartyColour("Democratic Party", "blue")
 
     h109.colour()
+    h109.setCentre(true)
 
     val h179 = new SemiCircle(179)
     h179.partiesFromTable(t179, 2)
@@ -46,6 +49,7 @@ object Main {
     h179.setPartyColour("The People's Socialist Alliance", "darkred")
 
     h179.colour()
+    h179.setCentre(true)
 
     val t751 = new Table(Array("Name", "Abbreviation", "Seats"))
     t751.addEntry(("Greens" :: "G" :: 104 :: Nil).toArray)
@@ -59,6 +63,7 @@ object Main {
     t751.sum(2)
     t751.setTableBorder(SolidBorder("black", 1))
     t751.setColumnBorder(SolidBorder("black", 1))
+    t751.setColumnBorder(SolidBorder("black", 1, LeftTextAlignment), 0)
     t751.setWidth(520)
     t751.setCentre(true)
 
@@ -66,7 +71,7 @@ object Main {
     h751.partiesFromTable(t751, 2)
     h751.build()
 
-    h751.setPartyColour("Greens", "green");
+    h751.setPartyColour("Greens", "green")
     h751.setPartyColour("The Christian Conservative Party", "black")
     h751.setPartyColour("Union of Socialists and Social Democrats", "red")
     h751.setPartyColour("National Conservative and Protectionist Party", "blue")
@@ -76,10 +81,11 @@ object Main {
 
     h751.colour()
     h751.addOpacityAnimation(0.1, 1)
+    h751.setCentre(true)
 
-    new HTMLFile(t179.getHtml + h179.getHtml()).save("test_179.html")
-    new HTMLFile(t109.getHtml + h109.getHtml()).save("test_109.html")
-    new HTMLFile(t751.getHtml + h751.getHtml()).save("test_751.html")
+    new HTMLFile(t179.getHtml + h179.getHtml).save("test_179.html")
+    new HTMLFile(t109.getHtml + h109.getHtml).save("test_109.html")
+    new HTMLFile(t751.getHtml + h751.getHtml).save("test_751.html")
 
     val t650 = new Table(Array("Name", "Abbreviation", "Seats"))
     t650.addEntry(("Union of the Social Democratic and Labour Party" :: "USDLP" :: 317 :: Nil).toArray)
@@ -104,8 +110,9 @@ object Main {
     h650.setPartyOrder(Array("Union of the Social Democratic and Labour Party", "The People's Independent Party", "The Conservative Party", "The Alliance of Democrats and Liberals"))
 
     h650.colour()
+    h650.setCentre(true)
 
-    new HTMLFile(t650.getHtml + h650.getHtml()).save("test_650.html")
+    new HTMLFile(t650.getHtml + h650.getHtml).save("test_650.html")
 
     val o650 = new Opposition(650, true)
     o650.partiesFromTable(t650, 2)
@@ -118,8 +125,9 @@ object Main {
     o650.setPartyOrder(Array("Union of the Social Democratic and Labour Party", "The People's Independent Party", "The Conservative Party", "The Alliance of Democrats and Liberals"))
 
     o650.colour()
+    o650.setCentre(true)
 
-    new HTMLFile(t650.getHtml + o650.getHtml()).save("test_o_650.html")
+    new HTMLFile(t650.getHtml + o650.getHtml).save("test_o_650.html")
 
   }
 
