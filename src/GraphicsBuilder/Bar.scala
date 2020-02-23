@@ -8,8 +8,8 @@ class Bar(seats: Int) extends ParliamentaryComposition(seats) {
     var animations: List[SVGAnimation] = List[SVGAnimation]()
   }
 
-  override protected val h: Int = 100
-  override protected val w: Int = 600
+  h = 100
+  w = 600
 
   private var segments: Array[BarSegment] = _
 

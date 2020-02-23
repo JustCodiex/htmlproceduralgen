@@ -254,6 +254,13 @@ object Main {
 
     new HTMLFile(trs.getHtml + brs_r.getHtml + brs_s.getHtml + hbr_r.getHtml + hbr_s.getHtml).save("test_rep_sen_870_54.html")
 
+    val t_results = new Table(Array("House of Representatives", "House of Senators"));
+    t_results.addEntry((brs_r.getHtml :: brs_s.getHtml :: Nil).toArray)
+    t_results.addEntry((hbr_r.getHtml :: hbr_s.getHtml :: Nil).toArray)
+    t_results.setCentre(true)
+
+    new HTMLFile(trs.getHtml + t_results.getHtml).save("test_rep_sen_870_54_tabled.html")
+
   }
 
 }

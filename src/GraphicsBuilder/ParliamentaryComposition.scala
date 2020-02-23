@@ -8,8 +8,8 @@ sealed case class Seat(x: Double, y: Double, var colour: String, r: Int, var sea
 
 abstract class ParliamentaryComposition(seats: Int) {
 
-  protected val w = 1700
-  protected val h = 740
+  protected var w = 1700.0
+  protected var h = 740.0
 
   val seat_svg_size = 8
   val seat_svg_spacing = 2

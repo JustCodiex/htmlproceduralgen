@@ -58,6 +58,9 @@ class SemiCircle(seats: Int) extends ParliamentaryComposition(seats) {
     var rIndex = 0
     var dst_to_centre = seats_per_row(0) * ((seat_svg_size * 2.0) / seat_svg_spacing)
 
+    h = dst_to_centre + seats_per_row.length * ((seat_svg_size * 2) * 1.25)
+    w = h * 2.0
+
     for (current_row <- seats_per_row) {
 
       val angle_decrement = 180.0 / current_row
