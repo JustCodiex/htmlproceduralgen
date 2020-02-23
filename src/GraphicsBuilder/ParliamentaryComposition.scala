@@ -1,12 +1,10 @@
 package GraphicsBuilder
 
-import HtmlCompiler.{SVGAnimation, SVGFadeInAnimation, Table}
+import HtmlCompiler._
 
 sealed case class Seat(x: Double, y: Double, var colour: String, r: Int, var seated: Boolean){
   var animations: List[SVGAnimation] = List[SVGAnimation]()
 }
-
-sealed case class LegParty(name: String, var colour: String, seats: Int)
 
 abstract class ParliamentaryComposition(seats: Int) {
 
@@ -18,52 +16,19 @@ abstract class ParliamentaryComposition(seats: Int) {
 
   private var centreSVG: Boolean = false
 
-  protected var parties: List[LegParty] = Nil
+  protected var parties: PartyList = new PartyList()
 
   protected val composition: Array[Seat] = new Array[Seat](seats)
 
-  def partiesFromTable(source: Table, seatIndex: Int): Unit = {
-    for (e <- source.entries){
-      parties = LegParty(e(0).toString, "white", e(seatIndex).toString.toInt) :: parties
-    }
-    parties = parties.filter(x => x.seats > 0).sortBy(x => x.seats).reverse
-  }
-
-  def setPartyColour(name: String, colour: String): Unit = {
-    for (p <- parties){
-      if (p.name == name){
-        p.colour = colour
-        return
-      }
-    }
-  }
-
-  def setPartyOrder(order: Array[String]): Unit = {
-
-    var partyOrder = List[LegParty]()
-
-    for (p <- order) {
-      partyOrder = parties.find(x => x.name == p).orNull :: partyOrder
-    }
-
-    parties = partyOrder.distinct.filter(x => x != null).reverse
-
-  }
+  def setParties(partyList: PartyList): Unit = { parties = partyList }
 
   def build(): Unit
 
   def colour(): Unit
 
   def addOpacityAnimation(duration: Double, maxDelay: Double): Unit = {
-    val minx: Double = composition.minBy(x => x.x).x - 2
-    val maxx: Double = composition.maxBy(x => x.x).x
-
-    val diff = maxx - minx
     for (seat <- composition){
-      val delay = (180.0 - math.atan2((h - seat.y), (seat.x - (w/2))).toDegrees) / 180.0 * maxDelay
-      if (seat.r == 0) {
-        println(math.atan2((h - seat.y), (seat.x - (w/2))).toDegrees + "°")
-      }
+      val delay = (180.0 - math.atan2(h - seat.y, seat.x - (w/2)).toDegrees) / 180.0 * maxDelay
       seat.animations = SVGFadeInAnimation(0, 1, duration, delay) :: seat.animations
     }
   }

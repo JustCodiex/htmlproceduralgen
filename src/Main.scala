@@ -18,6 +18,9 @@ object Main {
     t179.setCentre(true)
     t179.sort(2)
 
+    val p179 = new PartyList().partiesFromTable(t179, 2)
+
+
     val t109 = new Table(Array("Name", "Abbreviation", "Seats"))
     t109.addEntry(("New Republican Party" :: "R" :: 63 :: Nil).toArray)
     t109.addEntry(("Democratic Party" :: "D" :: 46 :: Nil).toArray)
@@ -28,27 +31,31 @@ object Main {
     t109.setCentre(true)
     t109.sort(2)
 
+    val p109 = new PartyList().partiesFromTable(t109, 2)
+
     val h109 = new SemiCircle(109)
-    h109.partiesFromTable(t109, 2)
     h109.build()
     h109.addOpacityAnimation(0.1, 1)
-    h109.setPartyColour("New Republican Party", "red")
-    h109.setPartyColour("Democratic Party", "blue")
+
+    p109.setPartyColour("New Republican Party", "red")
+    p109.setPartyColour("Democratic Party", "blue")
+    h109.setParties(p109)
 
     h109.colour()
     h109.setCentre(true)
 
     val h179 = new SemiCircle(179)
-    h179.partiesFromTable(t179, 2)
     h179.build()
 
-    h179.setPartyColour("Social Democrats for a United Country", "red")
-    h179.setPartyColour("National Conservatives", "lightblue")
-    h179.setPartyColour("Union of Liberals and Conservatives", "yellow")
-    h179.setPartyColour("Green Democrats", "green")
-    h179.setPartyColour("The People's Socialist Alliance", "darkred")
+    p179.setPartyColour("Social Democrats for a United Country", "red")
+    p179.setPartyColour("National Conservatives", "lightblue")
+    p179.setPartyColour("Union of Liberals and Conservatives", "yellow")
+    p179.setPartyColour("Green Democrats", "green")
+    p179.setPartyColour("The People's Socialist Alliance", "darkred")
+    h179.setParties(p179)
 
     h179.colour()
+    h179.addOpacityAnimation(0.1, 1.5)
     h179.setCentre(true)
 
     val t751 = new Table(Array("Name", "Abbreviation", "Seats"))
@@ -68,17 +75,17 @@ object Main {
     t751.setCentre(true)
 
     val h751 = new SemiCircle(751)
-    h751.partiesFromTable(t751, 2)
     h751.build()
 
-    h751.setPartyColour("Greens", "green")
-    h751.setPartyColour("The Christian Conservative Party", "black")
-    h751.setPartyColour("Union of Socialists and Social Democrats", "red")
-    h751.setPartyColour("National Conservative and Protectionist Party", "blue")
-    h751.setPartyColour("Alliance for Freedom and Liberty", "orange")
-    h751.setPartyColour("Moderate Democrats and Centrists", "yellow")
-    h751.setPartyColour("Unitary Left", "darkred")
-    h751.setPartyOrder(
+    val p751 = new PartyList().partiesFromTable(t751, 2)
+    p751.setPartyColour("Greens", "green")
+    p751.setPartyColour("The Christian Conservative Party", "black")
+    p751.setPartyColour("Union of Socialists and Social Democrats", "red")
+    p751.setPartyColour("National Conservative and Protectionist Party", "blue")
+    p751.setPartyColour("Alliance for Freedom and Liberty", "orange")
+    p751.setPartyColour("Moderate Democrats and Centrists", "yellow")
+    p751.setPartyColour("Unitary Left", "darkred")
+    p751.setPartyOrder(
       Array(
         "Unitary Left", "Union of Socialists and Social Democrats", "Greens",
         "Moderate Democrats and Centrists", "Alliance for Freedom and Liberty",
@@ -86,6 +93,7 @@ object Main {
       )
     )
 
+    h751.setParties(p751)
     h751.colour()
     h751.addOpacityAnimation(0.1, 1)
     h751.setCentre(true)
@@ -106,32 +114,29 @@ object Main {
     t650.setWidth(520)
     t650.setCentre(true)
 
+    val p650 = new PartyList().partiesFromTable(t650, 2)
+    p650.setPartyColour("Union of the Social Democratic and Labour Party", "red")
+    p650.setPartyColour("The Conservative Party", "blue")
+    p650.setPartyColour("The Alliance of Democrats and Liberals", "orange")
+    p650.setPartyColour("The People's Independent Party", "magenta")
+    p650.setPartyOrder(Array("Union of the Social Democratic and Labour Party", "The People's Independent Party", "The Conservative Party", "The Alliance of Democrats and Liberals"))
+
+
     val h650 = new SemiCircle(650)
-    h650.partiesFromTable(t650, 2)
     h650.build()
 
-    h650.setPartyColour("Union of the Social Democratic and Labour Party", "red")
-    h650.setPartyColour("The Conservative Party", "blue")
-    h650.setPartyColour("The Alliance of Democrats and Liberals", "orange")
-    h650.setPartyColour("The People's Independent Party", "magenta")
-    h650.setPartyOrder(Array("Union of the Social Democratic and Labour Party", "The People's Independent Party", "The Conservative Party", "The Alliance of Democrats and Liberals"))
-
+    h650.setParties(p650)
     h650.colour()
+    h650.addOpacityAnimation(0.1, 1.5)
     h650.setCentre(true)
 
     new HTMLFile(t650.getHtml + h650.getHtml).save("test_650.html")
 
     val o650 = new Opposition(650, true)
-    o650.partiesFromTable(t650, 2)
     o650.build()
-
-    o650.setPartyColour("Union of the Social Democratic and Labour Party", "red")
-    o650.setPartyColour("The Conservative Party", "blue")
-    o650.setPartyColour("The Alliance of Democrats and Liberals", "orange")
-    o650.setPartyColour("The People's Independent Party", "magenta")
-    o650.setPartyOrder(Array("Union of the Social Democratic and Labour Party", "The People's Independent Party", "The Conservative Party", "The Alliance of Democrats and Liberals"))
-
+    o650.setParties(p650)
     o650.colour()
+    o650.addOpacityAnimation(0.1, 1.5)
     o650.setCentre(true)
 
     new HTMLFile(t650.getHtml + o650.getHtml).save("test_o_650.html")
@@ -149,14 +154,16 @@ object Main {
     t435.setWidth(520)
     t435.setCentre(true)
 
+    val p435 = new PartyList().partiesFromTable(t435, 2)
+    p435.setPartyColour("Democratic Socialists", "darkred")
+    p435.setPartyColour("Democrat", "blue")
+    p435.setPartyColour("Moderate", "yellow")
+    p435.setPartyColour("Republican", "red")
+    p435.setPartyColour("National Republicans", "magenta")
+    p435.setPartyOrder(Array("Moderate", "Democrat", "Republican", "National Republicans", "Democratic Socialists"))
+
     val b435 = new Bar(435)
-    b435.partiesFromTable(t435, 2)
-    b435.setPartyColour("Democratic Socialists", "darkred")
-    b435.setPartyColour("Democrat", "blue")
-    b435.setPartyColour("Moderate", "yellow")
-    b435.setPartyColour("Republican", "red")
-    b435.setPartyColour("National Republicans", "magenta")
-    b435.setPartyOrder(Array("Moderate", "Democrat", "Republican", "National Republicans", "Democratic Socialists"))
+    b435.setParties(p435)
     b435.colour()
 
     b435.setShowSeats(true)
@@ -164,7 +171,88 @@ object Main {
     b435.setShowMajority(true)
     b435.addOpacityAnimation(1.5)
 
-    new HTMLFile(t435.getHtml + b435.getHtml).save("test_expanded_us_435.html")
+    val h435 = new SemiCircle(435)
+    h435.setParties(p435)
+    h435.build()
+
+    h435.colour()
+    h435.addOpacityAnimation(0.1, 1.5)
+    h435.setCentre(true)
+
+    new HTMLFile(t435.getHtml + b435.getHtml + h435.getHtml).save("test_expanded_us_435.html")
+
+    // 870, 54
+    val trs = new Table(Array("Name", "Abbreviation", "House of Representatives", "House of Senators"))
+    trs.addEntry(("Liberal Democrats" :: "LibDem" :: 77 :: 5 :: Nil).toArray)
+    trs.addEntry(("Conservative People's Party" :: "CPP" :: 206 :: 18 :: Nil).toArray)
+    trs.addEntry(("National Liberation Front" :: "NLF" :: 161 :: 7 :: Nil).toArray)
+    trs.addEntry(("Moderate Centrist Voting Group" :: "ModCen" :: 92 :: 6 :: Nil).toArray)
+    trs.addEntry(("The People's Socialist Party" :: "PSP" :: 248 :: 15 :: Nil).toArray)
+    trs.addEntry(("Party of Democrats and Socialists" :: "DemSoc" :: 50 :: 3 :: Nil).toArray)
+    trs.addEntry(("Revolutionary Alliance of Communists" :: "RAC" :: 36 :: 0 :: Nil).toArray)
+    trs.sort(2)
+    trs.sum(2)
+    trs.sum(3)
+    trs.setTableBorder(SolidBorder("black", 1))
+    trs.setColumnBorder(SolidBorder("black", 1))
+    trs.setWidth(800)
+    trs.setCentre(true)
+
+    val prs_r = new PartyList().partiesFromTable(trs, 2)
+    prs_r.setPartyColour("Liberal Democrats", "yellow")
+    prs_r.setPartyColour("Conservative People's Party", "darkgreen")
+    prs_r.setPartyColour("National Liberation Front", "blue")
+    prs_r.setPartyColour("Moderate Centrist Voting Group", "orange")
+    prs_r.setPartyColour("The People's Socialist Party", "red")
+    prs_r.setPartyColour("Party of Democrats and Socialists", "magenta")
+    prs_r.setPartyColour("Revolutionary Alliance of Communists", "darkred")
+    prs_r.setPartyOrder(
+      Array(
+        "National Liberation Front", "Conservative People's Party", "Liberal Democrats",
+        "Moderate Centrist Voting Group", "The People's Socialist Party", "Party of Democrats and Socialists",
+        "Revolutionary Alliance of Communists"
+      )
+    )
+    val prs_s = prs_r.update(trs, 3)
+    prs_s.setPartyOrder(
+      Array(
+        "National Liberation Front", "Conservative People's Party", "Liberal Democrats",
+        "Moderate Centrist Voting Group", "The People's Socialist Party", "Party of Democrats and Socialists",
+        "Revolutionary Alliance of Communists"
+      )
+    )
+
+    val brs_r = new Bar(870)
+    brs_r.setParties(prs_r)
+    brs_r.colour()
+    brs_r.setShowSeats(true)
+    brs_r.setCentre(true)
+    brs_r.setShowMajority(true)
+    brs_r.addOpacityAnimation(1.5)
+
+    val brs_s = new Bar(54)
+    brs_s.setParties(prs_s)
+    brs_s.colour()
+    brs_s.setShowSeats(true)
+    brs_s.setCentre(true)
+    brs_s.setShowMajority(true)
+    brs_s.addOpacityAnimation(1.5)
+
+    val hbr_r = new SemiCircle(870)
+    hbr_r.setParties(prs_r)
+    hbr_r.build()
+    hbr_r.colour()
+    hbr_r.addOpacityAnimation(0.1, 1.5)
+    hbr_r.setCentre(true)
+
+    val hbr_s = new SemiCircle(54)
+    hbr_s.setParties(prs_s)
+    hbr_s.build()
+    hbr_s.colour()
+    hbr_s.addOpacityAnimation(0.1, 1.5)
+    hbr_s.setCentre(true)
+
+    new HTMLFile(trs.getHtml + brs_r.getHtml + brs_s.getHtml + hbr_r.getHtml + hbr_s.getHtml).save("test_rep_sen_870_54.html")
 
   }
 

@@ -33,7 +33,7 @@ class Opposition(seats: Int, isVertical: Boolean) extends ParliamentaryCompositi
 
     for (i <- oppositions.indices) {
 
-      val columns = (oppositions(i) / 11)
+      val columns = oppositions(i) / 11
       val rows = 11
       val rectSeats = rows * columns
 
@@ -42,7 +42,7 @@ class Opposition(seats: Int, isVertical: Boolean) extends ParliamentaryCompositi
 
           val xy = getPos(r,c)
 
-          composition(sIndex) = Seat(xy._1, xy._2, "white", r, false)
+          composition(sIndex) = Seat(xy._1, xy._2, "white", r, seated = false)
           sIndex += 1
 
         }
@@ -53,7 +53,7 @@ class Opposition(seats: Int, isVertical: Boolean) extends ParliamentaryCompositi
 
         val xy = getPos(last,columns)
 
-        composition(sIndex) = Seat(xy._1, xy._2, "white", rows + 1, false)
+        composition(sIndex) = Seat(xy._1, xy._2, "white", rows + 1, seated = false)
 
         sIndex += 1
 
@@ -68,7 +68,7 @@ class Opposition(seats: Int, isVertical: Boolean) extends ParliamentaryCompositi
   def colour(): Unit = {
 
     var pIndex = 0
-    val pSeats = parties.map(x => x.seats).toArray
+    val pSeats = parties.toSeats
 
     for (i <- 0 until seats){
 

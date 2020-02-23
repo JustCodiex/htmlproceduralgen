@@ -70,7 +70,7 @@ class SemiCircle(seats: Int) extends ParliamentaryComposition(seats) {
         val x = (w / 2.0) + (math.cos(math.toRadians(angle)) * dst_to_centre)
         val y = h - (math.sin(math.toRadians(angle)) * dst_to_centre)
 
-        composition(sIndex) = Seat(x, y, "white", rIndex, false)
+        composition(sIndex) = Seat(x, y, "white", rIndex, seated = false)
         arr(i) = sIndex
 
         sIndex += 1
@@ -92,10 +92,12 @@ class SemiCircle(seats: Int) extends ParliamentaryComposition(seats) {
   }
 
   def colour(): Unit = {
-    this.colour(true)
+    //this.colour(true)
+    this.colourExperimental()
   }
 
-  def colour(outwards: Boolean): Unit = {
+  /*
+  private def colour(outwards: Boolean): Unit = {
 
     var pIndexMin = 0
     var pIndexMax = parties.length - 1
@@ -104,7 +106,7 @@ class SemiCircle(seats: Int) extends ParliamentaryComposition(seats) {
     var rMinIndex = 0
 
     val cIndex = emptyRow(seatIndices.length, 0)
-    val pSeats = parties.map(x => x.seats).toArray // Also used to validate we've allocated correctly
+    val pSeats = parties.toSeats // Also used to validate we've allocated correctly
 
     var invert = false
 
@@ -181,6 +183,56 @@ class SemiCircle(seats: Int) extends ParliamentaryComposition(seats) {
       }
 
       invert = !invert
+
+    }
+
+  }*/
+
+  private def colourExperimental(): Unit = {
+
+    def calcDst(s: Int): Int = {
+      Math.sqrt(Math.pow(this.composition(s).x - (w/2), 2) + Math.pow(h - this.composition(s).y, 2)).asInstanceOf[Int]
+    }
+
+    var pIndex = 0
+    val pSeats = parties.toSeats
+
+    var angle = 180.0f
+    val angle_decrement = 180.0f / seatIndices.last.length
+
+    while (angle >= -1.0f) {
+
+      var availableSeats = List[Int]()
+
+      for (s <- this.composition.indices){
+
+        val sAngle = Math.atan2(h - this.composition(s).y, this.composition(s).x - (w/2)).toDegrees
+
+        if (angle < sAngle && !this.composition(s).seated){
+          availableSeats = s :: availableSeats
+        }
+
+      }
+
+      availableSeats = availableSeats.sortBy(x => calcDst(x))
+
+      for (i <- availableSeats) {
+
+        if (pIndex < parties.length) {
+
+          this.composition(i).seated = true
+          this.composition(i).colour = parties(pIndex).colour
+
+          pSeats(pIndex) -= 1
+          if (pSeats(pIndex) <= 0) {
+            pIndex += 1
+          }
+
+        }
+
+      }
+
+      angle -= angle_decrement
 
     }
 
