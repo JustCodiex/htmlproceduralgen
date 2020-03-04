@@ -1,0 +1,5 @@
+package GraphicsBuilder
+
+class SeatSemiCircle {
+
+}

@@ -45,6 +45,8 @@ sealed class PartyList {
 
   def toSeats: Array[Int] = { this.parties.map(x => x.seats).toArray }
 
+  def filter(function: Function[LegislativeParty, Boolean]): Unit = { this.parties.filter(function) }
+
   def update(source: Table, seatIndex: Int): PartyList = {
     val ls = new PartyList().partiesFromTable(source, seatIndex)
     for (p1 <- parties.indices) {

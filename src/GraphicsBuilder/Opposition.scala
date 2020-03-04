@@ -1,5 +1,7 @@
 package GraphicsBuilder
 
+import HtmlCompiler._
+
 class Opposition(seats: Int, isVertical: Boolean) extends ParliamentaryComposition(seats) {
 
   private val SeatsMajority = seats / 2 + 1
@@ -83,6 +85,14 @@ class Opposition(seats: Int, isVertical: Boolean) extends ParliamentaryCompositi
 
     }
 
+  }
+
+
+  override def addOpacityAnimation(duration: Double, maxDelay: Double): Unit = {
+    for (i <- composition.indices){
+      val s = composition(i)
+      s.animations = SVGFadeInAnimation(0, 1.0, duration, i / seats.asInstanceOf[Double]) :: s.animations
+    }
   }
 
 }

@@ -11,6 +11,9 @@ abstract class ParliamentaryComposition(seats: Int) {
   protected var w = 1700.0
   protected var h = 740.0
 
+  def getWidth: Double = w
+  def getHeight: Double = h
+
   val seat_svg_size = 8
   val seat_svg_spacing = 2
 

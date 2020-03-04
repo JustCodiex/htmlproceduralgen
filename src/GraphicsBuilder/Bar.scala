@@ -20,6 +20,7 @@ class Bar(seats: Int) extends ParliamentaryComposition(seats) {
   def setShowPercentages(show: Boolean): Unit = { showPercentages = show }
   def setShowSeats(show: Boolean): Unit = { showSeats = show }
   def setShowMajority(show: Boolean): Unit = { showMajority = show }
+  def setWidth(w: Double): Unit = { this.w = w }
 
   override def build(): Unit = {
 

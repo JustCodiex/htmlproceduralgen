@@ -197,11 +197,14 @@ class SemiCircle(seats: Int) extends ParliamentaryComposition(seats) {
       Math.sqrt(Math.pow(this.composition(s).x - (w/2), 2) + Math.pow(h - this.composition(s).y, 2)).asInstanceOf[Int]
     }
 
+    // Filter out any parties without any seats
+    parties.filter(x => x.seats > 0)
+
     var pIndex = 0
     val pSeats = parties.toSeats
 
-    var angle = 180.0f
     val angle_decrement = 180.0f / seatIndices.last.length
+    var angle = 180.0f - angle_decrement
 
     while (angle >= -1.0f) {
 
